@@ -36,16 +36,6 @@
         app:layout_constraintTop_toBottomOf="@+id/textView"
         tools:layout_editor_absoluteX="4dp" />
 
-    <TextView
-        android:id="@+id/errorMessaageId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        android:textColor="#F40000"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/questionNoId" />
-
     <ImageView
         android:id="@+id/loadingGif1"
         android:layout_width="wrap_content"
@@ -57,8 +47,18 @@
         android:id="@+id/triviaRecyclerViewId"
         android:layout_width="408dp"
         android:layout_height="632dp"
-        android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/errorMessaageId" />
+
+    <TextView
+        android:id="@+id/errorMessaageId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:textColor="#ED0000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/questionNoId" />
 

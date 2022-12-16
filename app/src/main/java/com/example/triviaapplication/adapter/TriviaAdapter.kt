@@ -26,7 +26,7 @@ class TriviaAdapter (
 
         override fun onBindViewHolder(holder: TriviaViewHolder, position: Int) {
             // binds the view holder with the data
-            holder.bindData ( dataSource.get(position) )
+            holder.bindData (dataSource[position])
         }
 
         override fun getItemViewType ( position: Int ) : Int {

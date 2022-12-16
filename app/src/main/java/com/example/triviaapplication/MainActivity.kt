@@ -2,6 +2,7 @@ package com.example.triviaapplication
 
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -15,6 +16,11 @@ import com.example.triviaapplication.API.Trivia
 import com.example.triviaapplication.API.TriviaAPI
 import com.example.triviaapplication.adapter.TriviaAdapter
 import okhttp3.OkHttpClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity(), View.OnClickListener{
 
@@ -31,11 +37,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
 
     override fun onClick(p0: View?) {
         val questionNoTF = findViewById<EditText>(R.id.questionNoId)
-        val errorMessage = findViewById<TextView>(R.id.errorMessaageId)
+
+         val errorMessage = findViewById<TextView>(R.id.errorMessaageId)
 
         val questionString = questionNoTF.getText().toString()
 
         val questionNumber = questionString.toInt()
+
+        errorMessage.text = ""
 
         if (questionNumber in 1..100){
             showGIF()
@@ -65,7 +74,29 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
 
         val recyclerView = findViewById<RecyclerView>(R.id.triviaRecyclerViewId)
         recyclerView.layoutManager = linearLayoutManager
-        recyclerView.adapter = adapter
+        recyclerView.adapter = TriviaAdapter(this, triviaList)
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl ( "http://jservice.io/api/" )
+            .addConverterFactory ( GsonConverterFactory.create() )
+            .build();
+        val triviaApi = retrofit.create ( TriviaAPI::class.java )
+
+
+        triviaApi.getTrivias ( 1 ).enqueue( object: Callback<List<Trivia>>
+        {
+            override fun onResponse (call: Call<List<Trivia>>, response: Response<List<Trivia>>)
+            {
+               Log.d("TAG",response.body().toString())
+                print(response.body().toString())
+            }
+            override fun onFailure( call: Call<List<Trivia>>, t: Throwable )
+            {
+                // code to be executed on connection or processing failure
+            }
+        });
+
+
 
 //        val trivia_api = getTriviaAPI()
 

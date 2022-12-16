@@ -9,20 +9,9 @@ import retrofit2.http.*
 
 
 public interface TriviaAPI {
-    // describe the HTTP method type (other values: @POST, @PUT, @DELETE)
-    // and the path of the endpoint relative to the root address of the API
-    @GET("random/")
-    // set the static header that specifies the encoding of the data transfer
-    // this is static information and will be the same for all the calls
+    @GET("random")
     @Headers("Content-Type: application/json")
-    // add information about the data mapping and return type
-    fun getTrivias(@Query("count") number: Int): Call<List<Trivia>>
-
-    @PUT ( "end_point_URL" )
-    fun endPointMethod ( @Body body: Trivia ) : Call<Void>
-
-
-
+    fun getTrivias(@Query("count") count: Int): Call<List<Trivia>>
 
     fun getTriviaAPI(): TriviaAPI? {
         val retrofit = Retrofit.Builder()
