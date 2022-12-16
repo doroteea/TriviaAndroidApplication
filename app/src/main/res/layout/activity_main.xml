@@ -45,12 +45,12 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/triviaRecyclerViewId"
-        android:layout_width="408dp"
-        android:layout_height="632dp"
+        android:layout_width="412dp"
+        android:layout_height="586dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/errorMessaageId" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <TextView
         android:id="@+id/errorMessaageId"
@@ -61,6 +61,14 @@
         android:textColor="#ED0000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/questionNoId" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Questions:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/errorMessaageId" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,7 +15,6 @@ import com.bumptech.glide.Glide
 import com.example.triviaapplication.API.Trivia
 import com.example.triviaapplication.API.TriviaAPI
 import com.example.triviaapplication.adapter.TriviaAdapter
-import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,7 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity(), View.OnClickListener{
 
-    private val triviaList: ArrayList<Trivia> = java.util.ArrayList();
+//    private val triviaList: ArrayList<Trivia> = java.util.ArrayList();
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +49,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
             showGIF()
             Handler().postDelayed(Runnable {
                 clearGif()
-                displayTrivias()
+                displayTrivias(questionNumber)
             }, 4000)
         } else {
             errorMessage.text = "Question number should be between 1 and 100"
@@ -68,33 +67,37 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         Glide.with(this).clear(imageView)
     }
 
-    fun displayTrivias(){
-        val linearLayoutManager = LinearLayoutManager(this)
-        val adapter = TriviaAdapter(this, triviaList)
-
-        val recyclerView = findViewById<RecyclerView>(R.id.triviaRecyclerViewId)
-        recyclerView.layoutManager = linearLayoutManager
-        recyclerView.adapter = TriviaAdapter(this, triviaList)
+    fun displayTrivias( questionNumber:Int){
 
         val retrofit = Retrofit.Builder()
             .baseUrl ( "http://jservice.io/api/" )
             .addConverterFactory ( GsonConverterFactory.create() )
             .build();
+
         val triviaApi = retrofit.create ( TriviaAPI::class.java )
 
-
-        triviaApi.getTrivias ( 1 ).enqueue( object: Callback<List<Trivia>>
+        triviaApi.getTrivias ( questionNumber ).enqueue( object: Callback<List<Trivia>>
         {
+
             override fun onResponse (call: Call<List<Trivia>>, response: Response<List<Trivia>>)
-            {
-               Log.d("TAG",response.body().toString())
-                print(response.body().toString())
+            { Log.d("Q",questionNumber.toString())
+                Log.d("GET",response.body().toString())
+                val triviaList: ArrayList<Trivia>  = response.body() as ArrayList<Trivia>
+                val linearLayoutManager = LinearLayoutManager(this@MainActivity)
+                val adapter = TriviaAdapter(this@MainActivity, triviaList)
+
+                val recyclerView = findViewById<RecyclerView>(R.id.triviaRecyclerViewId)
+                recyclerView.layoutManager = linearLayoutManager
+                recyclerView.adapter = adapter
+                Log.d("TEST",triviaList.get(0).category.title)
             }
             override fun onFailure( call: Call<List<Trivia>>, t: Throwable )
             {
                 // code to be executed on connection or processing failure
             }
+
         });
+
 
 
 

@@ -29,17 +29,8 @@ class TriviaViewHolder ( private val view: View) : RecyclerView.ViewHolder ( vie
         answerRef.text = data.answer
         valueRef.text = data.value.toString()
         createdAtRef.text = data.created_at.toString()
-        categoryTitleRef.text = data.category_title
+        categoryTitleRef.text = data.category.title
 
     }
-
-//    fun onClick(view: View?) {
-//        val position = adapterPosition
-//        println("Toggle star $position")
-//        val visible = starRef.getVisibility() === VISIBLE
-//        data.setImportant(!visible)
-//        starRef.setVisibility(if (visible) INVISIBLE else VISIBLE)
-//    }
-
 
 }
