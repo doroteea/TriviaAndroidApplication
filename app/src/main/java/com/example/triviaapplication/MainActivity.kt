@@ -1,13 +1,13 @@
 package com.example.triviaapplication
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -100,21 +100,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
 
 
 
+    }
 
-//        val trivia_api = getTriviaAPI()
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.options_menu,menu)
+        return super.onCreateOptionsMenu(menu)
+    }
 
-//        val message: String = sendMessage.getText().toString()
-//        val newChatMessage =
-//            ChatMessage(getDisplayName(), message, Timestamp(System.currentTimeMillis()), false)
-//        triviaList.add(newChatMessage)
-//        val responseMessage = ChatMessage(
-//            "Computer",
-//            "Automated response",
-//            Timestamp(System.currentTimeMillis()),
-//            false
-//        )
-//        chatMessagesList.add(responseMessage)
-
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId){
+            R.id.item1Id -> startActivity(Intent(this, AddQuestionActivity::class.java))
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
 
