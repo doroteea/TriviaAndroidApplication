@@ -20,16 +20,16 @@
 
     <TextView
         android:id="@+id/errorCategoryId"
-        android:layout_width="40dp"
-        android:layout_height="15dp"
+        android:layout_width="371dp"
+        android:layout_height="21dp"
         android:text="error"
         android:textColor="#FF0000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/categoryTFId"
-        app:layout_constraintVertical_bias="0.032" />
+        app:layout_constraintVertical_bias="0.026" />
 
     <TextView
         android:id="@+id/errorAnswerId"
@@ -50,7 +50,6 @@
         android:layout_marginTop="100dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Question"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +62,6 @@
         android:layout_marginTop="12dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Answer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/errorQuestionId" />
@@ -75,7 +73,6 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Value"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
@@ -88,7 +85,6 @@
         android:layout_marginTop="12dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Category"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
@@ -105,4 +101,5 @@
         app:layout_constraintHorizontal_bias="0.093"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/questionTFId" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

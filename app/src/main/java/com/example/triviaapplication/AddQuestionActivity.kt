@@ -3,6 +3,7 @@ package com.example.triviaapplication
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -42,29 +43,42 @@ class AddQuestionActivity : AppCompatActivity() {
                 val errorMessageValue = findViewById<TextView>(R.id.errorValueId)
                 val errorMessageCategory = findViewById<TextView>(R.id.errorCategoryId)
 
+                Log.d("HERE","before checking")
+                val categories = ArrayList<String>()
+                categories.add("Music")
+                categories.add("Geography")
+                categories.add("History")
+                categories.add("Personalities")
 
-                var hasErrors: Boolean = false
+                errorMessageQuestion.text = " "
+                errorMessageAnswer.text = " "
+                errorMessageValue.text = " "
+                errorMessageCategory.text = " "
 
-                if(addQuestionTF.getText().toString().length <= 5) {
+                var hasErrors = false
+
+                Log.d("Q",addQuestionTF.getText().toString())
+                Log.d("Q",addQuestionTF.getText().toString().length.toString())
+                if(addQuestionTF.getText().toString() == "" || addQuestionTF.getText().toString().length <= 5) {
                     errorMessageQuestion.text = "Question should have more than 5 letters"
                     hasErrors = true
                 }
-                if(addAnswerTF.getText().toString().length <= 5) {
+                if(addAnswerTF.getText().toString() == "" || addAnswerTF.getText().toString().length <= 5) {
                     errorMessageAnswer.text = "Answer should have more than 5 letters"
                     hasErrors = true
                 }
-                if(addValueTF.getText().toString().toInt() in 50..150 ) {
-                    errorMessageValue.text = "Value should be between 50 and 150"
+                if(addValueTF.getText().toString() == "" || addValueTF.getText().toString().toInt() <50 || addValueTF.getText().toString().toInt()>150 ) {
+                    errorMessageValue.text =  "Value should be between 50 and 150"
                     hasErrors = true
                 }
-                if(addCategoryTF.getText().toString().length <= 5) {
-                    errorMessageCategory.text = "Accepted Categories: Muzică, Geografie, Istorie, Personalități"
+                if(addCategoryTF.getText().toString() == "" || !categories.contains(addCategoryTF.getText().toString())) {
+                    errorMessageCategory.text = "Accepted Categories: Music, Geography, History, Personalities"
                     hasErrors = true
                 }
-                if(!hasErrors){
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                }
+//                if(hasErrors){
+//                    val intent = Intent(this, MainActivity::class.java)
+//                    startActivity(intent)
+//                }
             }
             .setNegativeButton("NO") { dialog: DialogInterface?, whichButton: Int ->
                 val intent = Intent(this, MainActivity::class.java)
@@ -73,4 +87,6 @@ class AddQuestionActivity : AppCompatActivity() {
         builder.create().show()
 
     }
+
+    fun isInteger(str: String?) = str?.toIntOrNull()?.let { true } ?: false
 }
