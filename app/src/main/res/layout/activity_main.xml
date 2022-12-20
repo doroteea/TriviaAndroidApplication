@@ -45,7 +45,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/triviaRecyclerViewId"
-        android:layout_width="412dp"
+        android:layout_width="match_parent"
         android:layout_height="522dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

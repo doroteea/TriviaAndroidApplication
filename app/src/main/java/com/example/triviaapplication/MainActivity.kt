@@ -88,6 +88,7 @@ open class MainActivity : AppCompatActivity(), View.OnClickListener{
                 triviaList.addAll( response.body() as ArrayList<Trivia>)
 //                val triviaList: ArrayList<Trivia>  = response.body() as ArrayList<Trivia>
                 val linearLayoutManager = LinearLayoutManager(this@MainActivity)
+
                 val adapter = TriviaAdapter(this@MainActivity, triviaList)
 
                 val recyclerView = findViewById<RecyclerView>(R.id.triviaRecyclerViewId)
@@ -102,6 +103,7 @@ open class MainActivity : AppCompatActivity(), View.OnClickListener{
 
         });
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.options_menu,menu)
