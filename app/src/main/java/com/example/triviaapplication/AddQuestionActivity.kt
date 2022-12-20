@@ -8,9 +8,13 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.triviaapplication.API.Category
+import com.example.triviaapplication.API.Trivia
 
 
 class AddQuestionActivity : AppCompatActivity() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_question)
@@ -23,7 +27,6 @@ class AddQuestionActivity : AppCompatActivity() {
         errorMessageAnswer.text = " "
         errorMessageValue.text = " "
         errorMessageCategory.text = " "
-
 
     }
 
@@ -55,30 +58,34 @@ class AddQuestionActivity : AppCompatActivity() {
                 errorMessageValue.text = " "
                 errorMessageCategory.text = " "
 
-                var hasErrors = false
+                var hasErrors = 0
 
                 Log.d("Q",addQuestionTF.getText().toString())
                 Log.d("Q",addQuestionTF.getText().toString().length.toString())
                 if(addQuestionTF.getText().toString() == "" || addQuestionTF.getText().toString().length <= 5) {
                     errorMessageQuestion.text = "Question should have more than 5 letters"
-                    hasErrors = true
+                    hasErrors = 1
                 }
                 if(addAnswerTF.getText().toString() == "" || addAnswerTF.getText().toString().length <= 5) {
                     errorMessageAnswer.text = "Answer should have more than 5 letters"
-                    hasErrors = true
+                    hasErrors = 1
                 }
-                if(addValueTF.getText().toString() == "" || addValueTF.getText().toString().toInt() <50 || addValueTF.getText().toString().toInt()>150 ) {
+                if(addValueTF.getText().toString() == "" || addValueTF.getText().toString().toInt() <50 || addValueTF.getText().toString().toInt()>150 || !isInteger(addValueTF.getText().toString())) {
                     errorMessageValue.text =  "Value should be between 50 and 150"
-                    hasErrors = true
+                    hasErrors = 1
                 }
                 if(addCategoryTF.getText().toString() == "" || !categories.contains(addCategoryTF.getText().toString())) {
                     errorMessageCategory.text = "Accepted Categories: Music, Geography, History, Personalities"
-                    hasErrors = true
+                    hasErrors = 1
                 }
-//                if(hasErrors){
-//                    val intent = Intent(this, MainActivity::class.java)
-//                    startActivity(intent)
-//                }
+                if(hasErrors==0){
+                    val intent = Intent(this, MainActivity::class.java)
+                    intent.putExtra("Q",Trivia(addQuestionTF.getText().toString(),addAnswerTF.getText().toString(),addValueTF.getText().toString().toInt(),java.sql.Timestamp(System.currentTimeMillis()),
+                        Category((addCategoryTF.getText().toString()))
+                    ))
+                    setResult(RESULT_OK,intent)
+                    finish()
+                }
             }
             .setNegativeButton("NO") { dialog: DialogInterface?, whichButton: Int ->
                 val intent = Intent(this, MainActivity::class.java)

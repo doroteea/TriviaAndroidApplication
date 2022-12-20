@@ -21,9 +21,10 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class MainActivity : AppCompatActivity(), View.OnClickListener{
 
-//    private val triviaList: ArrayList<Trivia> = java.util.ArrayList();
+open class MainActivity : AppCompatActivity(), View.OnClickListener{
+
+    private val triviaList: ArrayList<Trivia> = java.util.ArrayList();
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +33,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         val downloadButton = findViewById<Button>(R.id.downloadButtonId)
 
         downloadButton.setOnClickListener(this);
+
+
     }
 
     override fun onClick(p0: View?) {
@@ -82,7 +85,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
             override fun onResponse (call: Call<List<Trivia>>, response: Response<List<Trivia>>)
             { Log.d("Q",questionNumber.toString())
                 Log.d("GET",response.body().toString())
-                val triviaList: ArrayList<Trivia>  = response.body() as ArrayList<Trivia>
+                triviaList.addAll( response.body() as ArrayList<Trivia>)
+//                val triviaList: ArrayList<Trivia>  = response.body() as ArrayList<Trivia>
                 val linearLayoutManager = LinearLayoutManager(this@MainActivity)
                 val adapter = TriviaAdapter(this@MainActivity, triviaList)
 
@@ -97,9 +101,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
             }
 
         });
-
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -113,5 +114,22 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         }
         return super.onOptionsItemSelected(item)
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK) {
+            if (data != null) {
+                if (data.hasExtra("Q")) {
+                    Log.d("PLS",""+data.getExtras()!!.getString("Q"))
+                    Toast.makeText(
+                        this, data.extras!!.getString("Q"),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
+
+
 }
 
